@@ -1,7 +1,21 @@
+import { Link, useLocation } from 'react-router-dom'
+
 function Header() {
+  const location = useLocation()
+
   return (
     <header>
-      <h1>This is header</h1>
+      <div>
+        {location.pathname === '/cart' ? (
+          <Link to="/" style={{ color: 'white' }}>
+            Back to Products
+          </Link>
+        ) : (
+          <Link to="/cart" style={{ color: 'white' }}>
+            Go to Shopping Cart
+          </Link>
+        )}
+      </div>
     </header>
   )
 }

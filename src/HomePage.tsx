@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { ProductType } from './ProductType'
 import { ProductsContext } from './ProductsContextProvider'
+import ProductCard from './ProductCard'
 
 type Status = 'loading' | 'success' | 'failure'
 const NoFilter = 'No Filter'
@@ -49,10 +50,7 @@ function HomePage() {
             {renderFilters()}
             {renderSort()}
             {products.map((product) => (
-              <div>
-                <span>{product.title}</span>
-                <span>{product.price}</span>
-              </div>
+              <ProductCard key={product.id} {...product} />
             ))}
           </>
         )

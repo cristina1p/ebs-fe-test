@@ -10,3 +10,9 @@ export type ProductType = {
     count: number
   }
 }
+
+export type ShoppingCartProductType = ProductType & {
+  quantity: number
+}
+
+export type ShoppingCart = ShoppingCartProductType[]
