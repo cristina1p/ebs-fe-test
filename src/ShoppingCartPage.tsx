@@ -2,10 +2,12 @@ import { useContext } from 'react'
 import { ShoppingCartContext } from './ShoppingCartContextProvider'
 import ShoppingCartProduct from './ShoppingCartProduct'
 import { ShoppingCart } from './ProductType'
+import { getTotalQuantity } from './helper/getTotalQuantity'
 
 function ShoppingCartPage() {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCartContext)
   const subtotal = getSubtotal(shoppingCart)
+  const totalQuantity = getTotalQuantity(shoppingCart)
 
   return (
     <main>
@@ -19,7 +21,9 @@ function ShoppingCartPage() {
           />
         ))}
 
-        <div>Subtotal - ${subtotal}</div>
+        <div>
+          Subtotal({totalQuantity} items) - ${subtotal}
+        </div>
 
         {shoppingCart.length > 0 && (
           <button onClick={() => setShoppingCart([])}>Clear All</button>

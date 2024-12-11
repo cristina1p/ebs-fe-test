@@ -8,14 +8,14 @@ function ProductCard(product: ProductType) {
   return (
     <div>
       <h2>{product.title}</h2>
-      <p>Price: ${product.price.toFixed(2)}</p>
-      <p>{product.category}</p>
+      <span>Price: ${product.price.toFixed(2)}</span>
+      <span>{product.category}</span>
 
       <div>
         {isAddedToShoppingCart() ? (
           <>
             <button onClick={handleRemoveFromShoppingCart}>Remove</button>
-            <p>Added to cart!</p>
+            <span>Added to cart!</span>
           </>
         ) : (
           <button onClick={handleAddToShoppingCart}>Add to Cart</button>
