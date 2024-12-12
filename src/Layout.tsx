@@ -4,8 +4,9 @@ import Footer from './Footer.tsx'
 
 function Layout() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Header />
+      {/* `Outlet` will be either Home page or Shopping Cart page */}
       <Outlet />
       <Footer />
     </div>
