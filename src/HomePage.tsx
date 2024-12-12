@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
+import ProductCard from './ProductCard'
 import { ProductType } from './ProductType'
 import { ProductsContext } from './ProductsContextProvider'
-import ProductCard from './ProductCard'
 
 type Status = 'loading' | 'success' | 'failure'
 const NoFilter = 'No Filter'
@@ -38,37 +38,63 @@ function HomePage() {
   }
 
   return (
-    <main>
-      <h1>Products</h1>
-      {renderContent()}
+    <main className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-grow">
+      <h1 className="text-2xl font-bold mb-6 mt-6">Products</h1>
+      <div
+        className={`flex flex-col flex-grow ${
+          status === 'loading' ? 'justify-center' : ''
+        }`}
+      >
+        {renderBody()}
+      </div>
     </main>
   )
 
-  function renderContent() {
+  function renderBody() {
     switch (status) {
       case 'loading':
-        return <div>loading...</div>
+        return (
+          <div className="self-center border-t-4 border-blue-500 border-solid w-16 h-16 rounded-full animate-spin"></div>
+        )
       case 'success':
         return (
           <>
-            {renderFilters()}
-            {renderSort()}
-            {products.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
+            <div className="flex flex-col md:flex-row gap-4 mb-2">
+              {renderFilters()}
+              {renderSort()}
+            </div>
+
+            <div
+              className={
+                'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'
+              }
+            >
+              {products.map((product) => (
+                <ProductCard key={product.title} {...product} />
+              ))}
+            </div>
           </>
         )
       case 'failure':
       default:
         return (
-          <div>
-            Something went wrong!{' '}
-            <button onClick={handleFetch}>Please Retry!</button>
+          <div className="flex flex-col items-center justify-center space-y-4 text-center p-6 bg-gray-100 rounded-lg shadow-md">
+            <span className="text-lg text-gray-700 font-medium">
+              Something went wrong!
+            </span>
+
+            <button
+              onClick={handleFetch}
+              className="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+            >
+              Please Retry!
+            </button>
           </div>
         )
     }
   }
 
+  // todo: extract to components
   function renderFilters() {
     const handleFilterChange = (
       event: React.ChangeEvent<HTMLSelectElement>
@@ -88,9 +114,18 @@ function HomePage() {
       getCategories(contextProducts)
     )
     return (
-      <div>
-        Filter by
-        <select onChange={handleFilterChange}>
+      <div className="flex flex-col md:flex-row md:items-center">
+        <label
+          htmlFor="category"
+          className="block text-sm font-medium text-gray-700 whitespace-nowrap"
+        >
+          Filter by Category
+        </label>
+        <select
+          id="category"
+          onChange={handleFilterChange}
+          className="md:ml-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        >
           {uniqueFilterCategories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -114,9 +149,19 @@ function HomePage() {
       setProducts(newProducts)
     }
     return (
-      <div>
-        Sort by
-        <select onChange={handleSortChange}>
+      <div className="flex flex-col md:flex-row md:items-center mb-2 md:mb-0">
+        <label
+          htmlFor="sort"
+          className="block text-sm font-medium text-gray-700 whitespace-nowrap"
+        >
+          Sort by
+        </label>
+
+        <select
+          id="sort"
+          onChange={handleSortChange}
+          className="md:ml-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        >
           <option value={BestMatch}>{BestMatch}</option>
           <option value={PriceLow}>{PriceLow}</option>
           <option value={PriceHigh}>{PriceHigh}</option>
