@@ -18,6 +18,10 @@ function HomePage() {
   const [sortCriteria, setSortCriteria] = useState(BestMatch)
 
   useEffect(() => {
+    handleFetch()
+  }, [])
+
+  function handleFetch() {
     setStatus('loading')
 
     fetch('https://fakestoreapi.com/products')
@@ -31,7 +35,7 @@ function HomePage() {
         console.error('Error fetching data:', error)
         setStatus('failure')
       })
-  }, [])
+  }
 
   return (
     <main>
@@ -56,7 +60,12 @@ function HomePage() {
         )
       case 'failure':
       default:
-        return <div>Something went wrong!</div>
+        return (
+          <div>
+            Something went wrong!{' '}
+            <button onClick={handleFetch}>Please Retry!</button>
+          </div>
+        )
     }
   }
 
