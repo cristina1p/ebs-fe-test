@@ -1,7 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useContext } from 'react'
+import { getTotalQuantity } from './helper/getTotalQuantity'
+import { ShoppingCartContext } from './ShoppingCartContextProvider'
 
 function Header() {
+  const { shoppingCart } = useContext(ShoppingCartContext)
   const location = useLocation()
+  const shoppingCartTotalQuantity = getTotalQuantity(shoppingCart)
 
   return (
     <header>
@@ -12,7 +17,7 @@ function Header() {
           </Link>
         ) : (
           <Link to="/cart" style={{ color: 'white' }}>
-            Go to Shopping Cart
+            Go to Shopping Cart ({shoppingCartTotalQuantity})
           </Link>
         )}
       </div>
