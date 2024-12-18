@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { getTotalQuantity } from './helper/getTotalQuantity'
-import { ShoppingCartContext } from './ShoppingCartContextProvider'
+import { getTotalQuantity } from '../helper/getTotalQuantity'
+import { ShoppingCartContext } from '../ShoppingCartContextProvider'
 
 function Header() {
   const { shoppingCart } = useContext(ShoppingCartContext)

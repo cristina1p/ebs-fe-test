@@ -1,12 +1,14 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import Layout from './Layout.tsx'
+import Layout from './components/Layout.tsx'
 import ProductsContextProvider from './ProductsContextProvider.tsx'
 import ShoppingCartContextProvider from './ShoppingCartContextProvider.tsx'
 import { Suspense, lazy } from 'react'
 
-const HomePage = lazy(() => import('./HomePage.tsx'))
-const ShoppingCartPage = lazy(() => import('./ShoppingCartPage.tsx'))
-const NotFoundPage = lazy(() => import('./NotFoundPage.tsx'))
+const HomePage = lazy(() => import('./home/HomePage.tsx'))
+const ShoppingCartPage = lazy(
+  () => import('./shopping-cart/ShoppingCartPage.tsx')
+)
+const NotFoundPage = lazy(() => import('./not-found/NotFoundPage.tsx'))
 
 function App() {
   return (

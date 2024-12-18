@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
-import { ShoppingCartProductType } from './ProductType'
-import { ShoppingCartContext } from './ShoppingCartContextProvider'
+import { ShoppingCartProductType } from '../ProductType'
+import { ShoppingCartContext } from '../ShoppingCartContextProvider'
 
 function ShoppingCartProduct(product: ShoppingCartProductType) {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCartContext)
@@ -101,11 +101,11 @@ function ShoppingCartProduct(product: ShoppingCartProductType) {
     event: React.ChangeEvent<HTMLInputElement>
   ) {
     const quantityInputValue = event.target.value
-    const MaxQuantity = 100
     // Allow only numeric input and enforce max value of 100
     if (quantityInputValue === '' || /^[0-9]*$/.test(quantityInputValue)) {
       const quantity = parseInt(quantityInputValue, 10)
 
+      const MaxQuantity = 100
       if (isNaN(quantity) || quantity <= MaxQuantity) {
         setQuantity(quantityInputValue)
         updateShoppingCart(quantity || 0)

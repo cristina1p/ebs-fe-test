@@ -1,12 +1,13 @@
 import { useContext } from 'react'
-import { ShoppingCartContext } from './ShoppingCartContextProvider'
+import { ShoppingCartContext } from '../ShoppingCartContextProvider'
 import ShoppingCartProduct from './ShoppingCartProduct'
-import { ShoppingCart } from './ProductType'
-import { getTotalQuantity } from './helper/getTotalQuantity'
+import { ShoppingCart } from '../ProductType'
+import { getTotalQuantity } from '../helper/getTotalQuantity'
 
 function ShoppingCartPage() {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCartContext)
-  const subtotal = getSubtotal(shoppingCart)
+
+  const subtotalPrice = getSubtotalPrice(shoppingCart)
   const totalQuantity = getTotalQuantity(shoppingCart)
 
   return (
@@ -32,7 +33,7 @@ function ShoppingCartPage() {
             <span className="text-md text-gray-400">
               ({totalQuantity} items)
             </span>{' '}
-            - ${subtotal}
+            - ${subtotalPrice}
           </h2>
         </div>
 
@@ -52,7 +53,7 @@ function ShoppingCartPage() {
   )
 }
 
-function getSubtotal(shoppingCart: ShoppingCart) {
+function getSubtotalPrice(shoppingCart: ShoppingCart) {
   return shoppingCart
     .reduce((acc, item) => acc + item.quantity * item.price, 0)
     .toFixed(2)

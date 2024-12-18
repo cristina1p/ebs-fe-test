@@ -1,31 +1,31 @@
 import { useContext } from 'react'
-import { ProductType } from './ProductType'
-import { ShoppingCartContext } from './ShoppingCartContextProvider'
+import { ProductType } from '../../ProductType'
+import { ShoppingCartContext } from '../../ShoppingCartContextProvider'
 
-function ProductCard(product: ProductType) {
+function ProductCard(props: ProductType) {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCartContext)
 
   return (
     <div className="flex flex-col items-start bg-white shadow-md rounded-lg p-4 relative">
       <img
-        src={product.image}
-        alt={product.title}
+        src={props.image}
+        alt={props.title}
         className="self-center h-48 object-contain bg-white border border-gray-200 rounded-lg shadow overflow-hidden"
       />
       <h2
         className="text-lg font-semibold text-gray-900 line-clamp-2 sm:h-[3.5rem]"
-        title={product.title}
+        title={props.title}
       >
-        {product.title}
+        {props.title}
       </h2>
       <span className="text-xl font-bold text-gray-900">
-        Price: ${product.price.toFixed(2)}
+        Price: ${props.price.toFixed(2)}
       </span>
       <span
-        title={product.category}
+        title={props.category}
         className="inline-block bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-medium"
       >
-        {product.category}
+        {props.category}
       </span>
 
       <div className="flex justify-between items-center mt-4">
@@ -34,7 +34,7 @@ function ProductCard(product: ProductType) {
             <button
               onClick={handleRemoveFromShoppingCart}
               className="absolute top-2 right-2 bg-gray-100 text-gray-600 hover:bg-red-500 hover:text-white p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-300"
-              aria-label={`Remove ${product.title} from cart`}
+              aria-label={`Remove ${props.title} from cart`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@ function ProductCard(product: ProductType) {
           <button
             onClick={handleAddToShoppingCart}
             className="bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-600"
-            aria-label={`Add ${product.title} to cart`}
+            aria-label={`Add ${props.title} to cart`}
           >
             Add to Cart
           </button>
@@ -69,13 +69,13 @@ function ProductCard(product: ProductType) {
 
   function isAddedToShoppingCart() {
     return Boolean(
-      shoppingCart.find((cartProduct) => cartProduct.id === product.id)
+      shoppingCart.find((cartProduct) => cartProduct.id === props.id)
     )
   }
 
   function handleRemoveFromShoppingCart(): void {
     const cartProductIndex = shoppingCart.findIndex(
-      (item) => item.id === product.id
+      (item) => item.id === props.id
     )
     // safety check - do nothing if it's already removed
     if (cartProductIndex === -1) return
@@ -89,12 +89,12 @@ function ProductCard(product: ProductType) {
 
   function handleAddToShoppingCart(): void {
     const cartProductIndex = shoppingCart.findIndex(
-      (item) => item.id === product.id
+      (item) => item.id === props.id
     )
     // safety check - do nothing if it's already there
     if (cartProductIndex !== -1) return
 
-    setShoppingCart(shoppingCart.concat({ ...product, quantity: 1 }))
+    setShoppingCart(shoppingCart.concat({ ...props, quantity: 1 }))
   }
 }
 
